@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class QuestionData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string correctAnswer;
+    public string[] answers;
+    public string question;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int diffucultyLevel;
+    public int questionID;
+
+    public bool isAvailable;
+    
+    public QuestionType questionType;
+}
+
+public enum QuestionType
+{
+    image,
+    text
+    
+}
+
+public class Questions : Monobehaviour
+{
+    public string[] questions;
 }
