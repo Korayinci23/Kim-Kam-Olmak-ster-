@@ -23,7 +23,7 @@ public enum QuestionType
     
 }
 
-public class Questions : Monobehaviour
+public class Questions : MonoBehaviour
 {
     public string[] questions;
 }
