@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "787806679910",
+    "project_id": "kimkamolmakister",
+    "storage_bucket": "kimkamolmakister.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787806679910:android:3c671f11eda4ed90e18ea7",
+        "android_client_info": {
+          "package_name": "com.begum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD1CoLCfSTROOFJAaxrTLrg-bAO1OnIv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

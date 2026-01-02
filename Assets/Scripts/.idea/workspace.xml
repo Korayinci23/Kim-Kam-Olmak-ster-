@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0390627d-aa43-4a33-8b50-d1a2d0bce142" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/questionsFirebae.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scenes/Scene1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes/Scene1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scripts.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionaDL4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionaDL4.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL1.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL2.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL3.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL5.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jsons/QuestionsDL5.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuestionData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuestionData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSON File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Resources/Scripts/Jsons/QuestionsDL1.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Resources/Scripts/QuestionData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Resources/Scripts/Questions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Movenent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/deneme/Documents/Unity/Kim-Kam-Olmak-ster-/Assets/Scripts/questionsFirebae.json" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="371Zn8zeXSDdFIt8qRbS0TX4lwx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ]
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0390627d-aa43-4a33-8b50-d1a2d0bce142" name="Changes" comment="" />
+      <created>1766072704517</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766072704517</updated>
+      <workItem from="1766072705104" duration="1406000" />
+      <workItem from="1766151289158" duration="9966000" />
+      <workItem from="1767120297378" duration="2424000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

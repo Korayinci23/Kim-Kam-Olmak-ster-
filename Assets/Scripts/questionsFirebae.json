@@ -1,0 +1,9 @@
+{
+  
+  "q_1_03": { "difficulty": 1, "question": "3", "options": ["3.1", "3.2", "3.3", "3.4"], "correctAnswer": "3.2", "isAvailable": true, "questionType": "text", "createdAt": { "__time__": "2025-12-30T21:00:00Z" } },
+  "q_2_01": { "difficulty": 2, "question": "Türk mitolojisinde gök tanrısı kimdir?", "options": ["Ülgen", "Tengri", "Erlik", "Umay"], "correctAnswer": "Tengri", "isAvailable": true, "questionType": "text", "createdAt": { "__time__": "2025-12-30T21:00:00Z" } },
+  "q_2_02": { "difficulty": 2, "question": "2", "options": ["2.1", "2.2", "2,3", "2.4"], "correctAnswer": "2.4", "isAvailable": true, "questionType": "text", "createdAt": { "__time__": "2025-12-30T21:00:00Z" } },
+  "q_3_01": { "difficulty": 3, "question": "Türk mitolojisinde gök tanrısı kimdir?", "options": ["Ülgen", "Tengri", "Erlik", "Umay"], "correctAnswer": "Tengri", "isAvailable": true, "questionType": "text", "createdAt": { "__time__": "2025-12-30T21:00:00Z" } },
+  "q_4_01": { "difficulty": 4, "question": "Türk mitolojisinde gök tanrısı kimdir?", "options": ["Ülgen", "Tengri", "Erlik", "Umay"], "correctAnswer": "Tengri", "isAvailable": true, "questionType": "text", "createdAt": { "__time__": "2025-12-30T21:00:00Z" } },
+  "q_5_01": { "difficulty": 5, "question": "Türk mitolojisinde gök tanrısı kimdir?", "options": ["Ülgen", "Tengri", "Erlik", "Umay"], "correctAnswer": "Tengri", "isAvailable": true, "questionType": "text", "createdAt": { "__time__": "2025-12-30T21:00:00Z" } }
+}
