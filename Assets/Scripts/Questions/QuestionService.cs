@@ -8,14 +8,14 @@ public class QuestionService
 {
     private readonly IQuestionRepository repository;
 
-    private int currentDifficulty = 1;
+    private int currentDifficulty = 3;
     private const int MinDifficulty = 1;
-    private const int MaxDifficulty = 3;
+    private const int MaxDifficulty = 5;
 
     private int correctStreak = 0;
     private int wrongStreak = 0;
 
-    public QuestionService(IQuestionRepository repo, int startDifficulty = 1)
+    public QuestionService(IQuestionRepository repo, int startDifficulty = 3)
     {
         repository = repo;
         currentDifficulty = startDifficulty;

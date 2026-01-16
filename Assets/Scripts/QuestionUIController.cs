@@ -10,6 +10,12 @@ public class QuestionUIController : MonoBehaviour
     private QuestionItem currentQuestion;
     
     private bool isLocked = false;
+
+    private Color geciciRenk;
+    
+    [Header("Question Number")] 
+    public int questionNumber;
+    public List<Image> questionNumberImages=new List<Image>();
     
     [Header("UI")]
     public TextMeshProUGUI questionText;
@@ -56,7 +62,7 @@ public class QuestionUIController : MonoBehaviour
             Debug.Log("❌ Soru kalmadı");
             return;
         }
-
+        
         ShowQuestion(currentQuestion);
 
         doubleAnswerActive = false;
@@ -70,6 +76,9 @@ public class QuestionUIController : MonoBehaviour
     {
         QuestionData data = item.Data;
         questionText.text = data.question;
+        geciciRenk = questionNumberImages[questionNumber].color;
+        geciciRenk.a = 1f; 
+        questionNumberImages[questionNumber].color = geciciRenk;
 
         List<string> options = new List<string>(data.options);
         Shuffle(options);
@@ -78,23 +87,35 @@ public class QuestionUIController : MonoBehaviour
         {
             optionButtons[i].gameObject.SetActive(true);
             optionButtons[i].interactable = true;
+            optionButtons[i].image.color = Color.white; // Rengi sıfırla
             optionButtons[i].onClick.RemoveAllListeners();
 
             optionTexts[i].text = options[i];
-            string selected = options[i];
+            
+            // DEĞİŞEN KISIM BURASI
+            string answerText = options[i];
+            Button myButton = optionButtons[i]; // O anki butonu bir değişkene alıyoruz
 
+            // Tıklanınca hem butonu (myButton) hem yazıyı (answerText) gönderiyoruz
             optionButtons[i].onClick.AddListener(() =>
             {
                 if (isLocked) return;
-                OnOptionSelected(selected);
+                OnOptionSelected(myButton, answerText);
             });
         }
     }
 
-    private async void OnOptionSelected(string selected)
+    private async void OnOptionSelected(Button clickedButton,string selected)
     {
         if (isLocked) return;
 
+        
+        isLocked = true;
+        Color sariRenk;
+        ColorUtility.TryParseHtmlString("#FFF578", out sariRenk);
+        clickedButton.image.color = sariRenk;
+        await Task.Delay(3000);
+        
         bool correct = selected == currentQuestion.Data.correctAnswer;
 
         // ✅ DOĞRU
@@ -107,6 +128,8 @@ public class QuestionUIController : MonoBehaviour
 
             DisableAllOptions();
             await Task.Delay(1200);
+            questionNumber++;
+            
             await LoadNextQuestion();
             return;
         }
@@ -126,12 +149,14 @@ public class QuestionUIController : MonoBehaviour
 
             return; // SORU DEVAM EDİYOR
         }
-
-        // ❌ Normal yanlış veya ikinci yanlış
+        
         isLocked = true;
         questionService.RegisterAnswer(false);
 
+        geciciRenk.a = 0.2f; 
+        questionNumberImages[questionNumber-1].color = geciciRenk;
         DisableAllOptions();
+        
         await Task.Delay(200);
         await LoadNextQuestion();
     }
