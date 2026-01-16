@@ -12,7 +12,7 @@ public class QuestionUIController : MonoBehaviour
     private bool isLocked = false;
 
     private Color geciciRenk;
-    
+    private Button spiritTargetButton;
     [Header("Audio")]
     public AudioSource sfxSource; 
     public AudioClip questionLoadSound;
@@ -44,6 +44,12 @@ public class QuestionUIController : MonoBehaviour
     public Button fiftyFiftyButton;
     public Button doubleAnswerButton;
 
+    [Header("Spirit Joker (Ruhlarla İletişim)")]
+    public Button spiritJokerButton;     
+    public GameObject spiritEffectObject; 
+    public AudioClip spiritJokerSound;   
+    private bool spiritJokerAvailable = true;
+    
     // Double Answer state
     private bool doubleAnswerAvailable = true;
     private bool doubleAnswerActive = false;
@@ -60,9 +66,14 @@ public class QuestionUIController : MonoBehaviour
 
         fiftyFiftyButton.interactable = true;
         doubleAnswerButton.interactable = true;
+        spiritJokerButton.interactable = true;
 
+        
+        spiritEffectObject.SetActive(false);
         fiftyFiftyButton.onClick.AddListener(UseFiftyFifty);
         doubleAnswerButton.onClick.AddListener(UseDoubleAnswer);
+        spiritJokerButton.onClick.AddListener(UseSpiritCommunication);
+        
 
         await LoadNextQuestion();
     }
@@ -86,22 +97,35 @@ public class QuestionUIController : MonoBehaviour
 
     private async Task LoadNextQuestion()
     {
+
+        ResetSpiritJokerEffects();
+
         foreach (var optionButton in optionButtons)
         {
             Color beyazRenk;
             ColorUtility.TryParseHtmlString("#FFFFFF", out beyazRenk);
             optionButton.image.color = beyazRenk;
+            
+            optionButton.interactable = true; 
         }
+        
+       
         if (questionNumber == 0)
         {
+            // a) İlerleme çubuğundaki ışıkları söndür
             foreach (var img in questionNumberImages)
             {
                 Color c = img.color;
                 c.a = 0.2f; 
                 img.color = c;
             }
+            
+            fiftyFiftyAvailable = true;
+            doubleAnswerAvailable = true;
+            spiritJokerAvailable = true; 
         }
-        
+       
+
         isLocked = false;
         fiftyFiftyUsedThisQuestion = false;
 
@@ -115,16 +139,21 @@ public class QuestionUIController : MonoBehaviour
         
         ShowQuestion(currentQuestion);
 
+       
         if (sfxSource != null && questionLoadSound != null)
         {
             sfxSource.PlayOneShot(questionLoadSound);
         }
         
-        doubleAnswerActive = false;
+      
+        doubleAnswerActive = false; 
         firstAnswerWasWrong = false;
+        
         doubleAnswerButton.interactable = doubleAnswerAvailable;
-
         fiftyFiftyButton.interactable = fiftyFiftyAvailable;
+        if(spiritJokerButton != null) spiritJokerButton.interactable = spiritJokerAvailable;
+
+        
         if (questionNumber < 7) 
         {
             timeLeft = 30f;
@@ -172,6 +201,7 @@ public class QuestionUIController : MonoBehaviour
     {
         Debug.Log("⏰ SÜRE DOLDU!");
         isLocked = true;
+        ResetSpiritJokerEffects(); 
         Lose();
        
     }
@@ -180,6 +210,7 @@ public class QuestionUIController : MonoBehaviour
     {
         if (isLocked) return;
 
+        ResetSpiritJokerEffects();
         
         isLocked = true;
         isTimerRunning = false;
@@ -230,6 +261,7 @@ public class QuestionUIController : MonoBehaviour
         Color kirmiziRenk;
         ColorUtility.TryParseHtmlString("#FF5851", out kirmiziRenk);
         clickedButton.image.color = kirmiziRenk;
+        
         if(sfxSource != null && wrongSound != null)
             sfxSource.PlayOneShot(wrongSound);
         
@@ -300,6 +332,77 @@ public class QuestionUIController : MonoBehaviour
 
     Debug.Log("🃏 Çift cevap jokeri aktif");
 }
+    public void UseSpiritCommunication()
+    {
+        if (!spiritJokerAvailable) return;
+
+        // Joker hakkını ye ve butonu pasif yap
+        spiritJokerAvailable = false;
+        if(spiritJokerButton != null) spiritJokerButton.interactable = false;
+
+        if (sfxSource != null && spiritJokerSound != null)
+        {
+            sfxSource.PlayOneShot(spiritJokerSound);
+        }
+
+        int correctIndex = -1;
+        List<int> activeWrongIndices = new List<int>();
+
+        for (int i = 0; i < optionTexts.Length; i++)
+        {
+            if (optionTexts[i].text == currentQuestion.Data.correctAnswer)
+            {
+                correctIndex = i;
+            }
+            else
+            {
+                if (optionButtons[i].interactable)
+                {
+                    activeWrongIndices.Add(i);
+                }
+            }
+        }
+
+        int targetIndex = correctIndex;
+        float randomValue = Random.Range(0f, 100f);
+
+        // %30 ihtimalle yanlış şıkkı seç (eğer varsa)
+        if (randomValue > 70f && activeWrongIndices.Count > 0)
+        {
+            targetIndex = activeWrongIndices[Random.Range(0, activeWrongIndices.Count)];
+        }
+
+       
+        
+        spiritEffectObject.SetActive(true);
+        
+        
+        spiritTargetButton = optionButtons[targetIndex]; 
+        
+        Color spiritColor;
+        ColorUtility.TryParseHtmlString("#78E3FF", out spiritColor);
+        spiritTargetButton.image.color = spiritColor;
+    }
+    
+    // Temizlik Fonksiyonu
+    private void ResetSpiritJokerEffects()
+    {
+        // Efekti kapat
+        if (spiritEffectObject != null)
+        {
+            spiritEffectObject.SetActive(false);
+        }
+
+        // Boyanmış bir buton varsa rengini beyaza çevir
+        if (spiritTargetButton != null)
+        {
+            Color beyaz;
+            ColorUtility.TryParseHtmlString("#FFFFFF", out beyaz);
+            spiritTargetButton.image.color = beyaz;
+            
+            spiritTargetButton = null; 
+        }
+    }
 
     private void Shuffle<T>(List<T> list)
     {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f4deaf2b267c4cf996ca826be31dc06
+guid: b00ae74ac8d8441dc83e2065f434eda3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: konusmabalonu_0
+      name: BaslaButonu_0
       rect:
         serializedVersion: 2
-        x: 375
-        y: 268
-        width: 346
-        height: 142
+        x: 425
+        y: 159
+        width: 230
+        height: 102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c83cf0dea2c94d11b69a3f8f81cd0c0
-      internalID: -2052350183
+      spriteID: 72b6b3d6b2f3940429ba9e721b1ef8d4
+      internalID: -645752533
       vertices: []
       indices: 
       edges: []
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      konusmabalonu_0: -2052350183
+      BaslaButonu_0: -645752533
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
