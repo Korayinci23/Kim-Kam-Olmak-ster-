@@ -75,24 +75,21 @@ public class PauseMenuController : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
-        if (isPaused) return; // Zaten pauseli ise tekrar pause etme
+        if (isPaused) return;
 
-        // Buton ses efekti çal
+       
         PlayPauseSound();
 
         isPaused = true;
-        Time.timeScale = 0f; // Oyunu durdur
+        Time.timeScale = 0f;
 
-        // Pause panel'i göster
-        if (pausePanel != null)
-        {
-            pausePanel.SetActive(true);
-        }
+        pausePanel.SetActive(true);
+        
 
         // Pause butonunu gizle (opsiyonel)
         if (pauseButton != null)
         {
-            //pauseButton.gameObject.SetActive(false);
+            pauseButton.gameObject.SetActive(false);
         }
 
         Debug.Log("Oyun durakladı!");
@@ -120,7 +117,7 @@ public class PauseMenuController : MonoBehaviour
         // Pause butonunu göster
         if (pauseButton != null)
         {
-            //pauseButton.gameObject.SetActive(true);
+            pauseButton.gameObject.SetActive(true);
         }
 
         Debug.Log("Oyun devam ediyor!");
