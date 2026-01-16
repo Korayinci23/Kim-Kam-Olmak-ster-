@@ -13,6 +13,24 @@ public class QuestionUIController : MonoBehaviour
 
     private Color geciciRenk;
     
+    [Header("Audio")]
+    public AudioSource sfxSource; 
+    public AudioClip questionLoadSound;
+    public AudioClip correctSound;
+    public AudioClip wrongSound;
+    public AudioClip winSound;         
+    public AudioClip loseSound;
+
+    [Header("Win&Lose")] 
+    public GameObject winScene;
+
+    public GameObject loseScene;
+    
+    [Header("Timer")]
+    public TextMeshProUGUI timerText;
+    private float timeLeft=30f;
+    private bool isTimerRunning = false;
+    
     [Header("Question Number")] 
     public int questionNumber;
     public List<Image> questionNumberImages=new List<Image>();
@@ -48,10 +66,42 @@ public class QuestionUIController : MonoBehaviour
 
         await LoadNextQuestion();
     }
-    
+    private void Update()
+    {
+        if (isTimerRunning)
+        {
+            timeLeft -= Time.deltaTime;
+            timerText.text = Mathf.CeilToInt(timeLeft).ToString();
+
+            
+            if (timeLeft <= 0)
+            {
+                isTimerRunning = false;
+                timeLeft = 0;
+                timerText.text = "0";
+                OnTimeExpired();
+            }
+        }
+    }
 
     private async Task LoadNextQuestion()
     {
+        foreach (var optionButton in optionButtons)
+        {
+            Color beyazRenk;
+            ColorUtility.TryParseHtmlString("#FFFFFF", out beyazRenk);
+            optionButton.image.color = beyazRenk;
+        }
+        if (questionNumber == 0)
+        {
+            foreach (var img in questionNumberImages)
+            {
+                Color c = img.color;
+                c.a = 0.2f; 
+                img.color = c;
+            }
+        }
+        
         isLocked = false;
         fiftyFiftyUsedThisQuestion = false;
 
@@ -65,11 +115,27 @@ public class QuestionUIController : MonoBehaviour
         
         ShowQuestion(currentQuestion);
 
+        if (sfxSource != null && questionLoadSound != null)
+        {
+            sfxSource.PlayOneShot(questionLoadSound);
+        }
+        
         doubleAnswerActive = false;
         firstAnswerWasWrong = false;
         doubleAnswerButton.interactable = doubleAnswerAvailable;
 
         fiftyFiftyButton.interactable = fiftyFiftyAvailable;
+        if (questionNumber < 7) 
+        {
+            timeLeft = 30f;
+            isTimerRunning = true;
+            timerText.gameObject.SetActive(true);
+        }
+        else
+        {
+            isTimerRunning = false;
+            timerText.gameObject.SetActive(false);
+        }
     }
 
     private void ShowQuestion(QuestionItem item)
@@ -87,16 +153,13 @@ public class QuestionUIController : MonoBehaviour
         {
             optionButtons[i].gameObject.SetActive(true);
             optionButtons[i].interactable = true;
-            optionButtons[i].image.color = Color.white; // Rengi sıfırla
+            optionButtons[i].image.color = Color.white; 
             optionButtons[i].onClick.RemoveAllListeners();
 
             optionTexts[i].text = options[i];
             
-            // DEĞİŞEN KISIM BURASI
             string answerText = options[i];
-            Button myButton = optionButtons[i]; // O anki butonu bir değişkene alıyoruz
-
-            // Tıklanınca hem butonu (myButton) hem yazıyı (answerText) gönderiyoruz
+            Button myButton = optionButtons[i];
             optionButtons[i].onClick.AddListener(() =>
             {
                 if (isLocked) return;
@@ -105,60 +168,96 @@ public class QuestionUIController : MonoBehaviour
         }
     }
 
+    private async void OnTimeExpired()
+    {
+        Debug.Log("⏰ SÜRE DOLDU!");
+        isLocked = true;
+        Lose();
+       
+    }
+    
     private async void OnOptionSelected(Button clickedButton,string selected)
     {
         if (isLocked) return;
 
         
         isLocked = true;
+        isTimerRunning = false;
         Color sariRenk;
         ColorUtility.TryParseHtmlString("#FFF578", out sariRenk);
         clickedButton.image.color = sariRenk;
-        await Task.Delay(3000);
+        await Task.Delay(1500);
         
         bool correct = selected == currentQuestion.Data.correctAnswer;
-
-        // ✅ DOĞRU
+       
         if (correct)
         {
+            if(sfxSource != null && correctSound != null)
+                sfxSource.PlayOneShot(correctSound);
+           
+            Color yesilRenk;
+            ColorUtility.TryParseHtmlString("#CCFF78", out yesilRenk);
+            clickedButton.image.color = yesilRenk;
+            
+            await Task.Delay(2000); 
             isLocked = true;
             questionService.RegisterAnswer(true);
-
             Debug.Log("✅ DOĞRU");
 
             DisableAllOptions();
             await Task.Delay(1200);
             questionNumber++;
-            
+            if (questionNumber == 15)
+            {
+                if (sfxSource != null && winSound != null)
+                {
+                    sfxSource.PlayOneShot(winSound);
+                }
+                Win(true);
+                await Task.Delay(3000);
+                Win(false);
+                
+                return;
+            }
+            geciciRenk.a = 0.5f; 
+            questionNumberImages[questionNumber-1].color = geciciRenk;
             await LoadNextQuestion();
             return;
         }
 
-        // ❌ YANLIŞ
+        
         Debug.Log("❌ YANLIŞ");
-
-        // 🃏 Double Answer AKTİFSE ve ilk yanlışsa
+        Color kirmiziRenk;
+        ColorUtility.TryParseHtmlString("#FF5851", out kirmiziRenk);
+        clickedButton.image.color = kirmiziRenk;
+        if(sfxSource != null && wrongSound != null)
+            sfxSource.PlayOneShot(wrongSound);
+        
+        await Task.Delay(2500);
+      
         if (doubleAnswerActive && !firstAnswerWasWrong)
         {
             firstAnswerWasWrong = true;
-
-            Debug.Log("🃏 İkinci cevap hakkı verildi");
-
-            // Yanlış seçilen şıkkı kapat
+            
             DisableSelectedOption(selected);
+            isLocked = false; 
 
-            return; // SORU DEVAM EDİYOR
+            return;
         }
+        for (int i = 0; i < optionTexts.Length; i++)
+        {
+            
+            if (optionTexts[i].text == currentQuestion.Data.correctAnswer)
+            {
+                Color yesilRenk;
+                ColorUtility.TryParseHtmlString("#CCFF78", out yesilRenk);
+                optionButtons[i].image.color = yesilRenk;
+                break;
+            }
+        }
+        await Task.Delay(2000);
+        Lose();
         
-        isLocked = true;
-        questionService.RegisterAnswer(false);
-
-        geciciRenk.a = 0.2f; 
-        questionNumberImages[questionNumber-1].color = geciciRenk;
-        DisableAllOptions();
-        
-        await Task.Delay(200);
-        await LoadNextQuestion();
     }
 
     
@@ -233,5 +332,30 @@ public class QuestionUIController : MonoBehaviour
         }
     }
 
+    private void Win(bool isActive)
+    {
+        winScene.SetActive(isActive);
+    }
 
+    private async void Lose()
+    {
+        // 🔊 KAYBETME SESİ
+        if (sfxSource != null && loseSound != null)
+        {
+            sfxSource.PlayOneShot(loseSound);
+        }
+        questionNumber=0;
+        isLocked = true;
+        questionService.RegisterAnswer(false);
+
+       
+        DisableAllOptions();
+        loseScene.SetActive(true);
+        await Task.Delay(2000);
+        loseScene.SetActive(false);
+        await Task.Delay(200);
+        await LoadNextQuestion();
+        
+    }
+    
 }
